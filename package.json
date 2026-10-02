@@ -1,0 +1,20 @@
+{
+  "name": "st-agent-company",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@google/genai": "^2.26.0",
+    "dotenv": "^18.0.5",
+    "express": "^5.2.1",
+    "ollama": "^0.6.4",
+    "playwright": "^1.63.0"
+  }
+}

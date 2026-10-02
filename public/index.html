@@ -1,0 +1,2808 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>ST Agent Company</title>
+
+<style>
+:root{
+  --bg:#07080d;
+  --panel:#0d1018;
+  --panel2:#111520;
+  --line:#202635;
+  --text:#f4f7ff;
+  --muted:#8993a8;
+  --accent:#8b7cff;
+  --cyan:#50d8ff;
+  --green:#55e6a5;
+  --danger:#ff6b7d;
+  --yellow:#f5d67b;
+  --shadow:0 20px 70px #0008;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:
+    radial-gradient(
+      circle at 70% 10%,
+      #25204d 0,
+      #0b0d15 30%,
+      var(--bg) 65%
+    );
+  color:var(--text);
+  font:14px Inter,system-ui,Segoe UI,sans-serif;
+  min-height:100vh;
+}
+
+button,
+input,
+textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+}
+
+/* ================================
+   APP
+================================ */
+
+.app{
+  display:grid;
+  grid-template-columns:235px 1fr;
+  min-height:100vh;
+}
+
+/* ================================
+   SIDEBAR
+================================ */
+
+.side{
+  border-right:1px solid var(--line);
+  background:#090b11e8;
+  padding:18px;
+  position:sticky;
+  top:0;
+  height:100vh;
+  backdrop-filter:blur(20px);
+}
+
+.brand{
+  font-weight:800;
+  font-size:18px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.brand i{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #fff,
+      #9b8dff 20%,
+      #4a36c9 60%,
+      #15122c
+    );
+  box-shadow:0 0 30px #7567ff99;
+  animation:brandPulse 3s ease-in-out infinite;
+}
+
+.nav{
+  margin-top:35px;
+  display:grid;
+  gap:6px;
+}
+
+.nav button{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:11px;
+  border-radius:12px;
+  text-align:left;
+  transition:.2s;
+}
+
+.nav button:hover,
+.nav button.active{
+  background:#171b28;
+  color:#fff;
+}
+
+/* ================================
+   MAIN
+================================ */
+
+.main{
+  padding:25px;
+  max-width:1500px;
+  width:100%;
+  margin:auto;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  align-items:center;
+}
+
+.eyebrow{
+  color:var(--muted);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+}
+
+.top h1{
+  margin:5px 0;
+  font-size:27px;
+}
+
+.status{
+  border:1px solid #253044;
+  background:#0d1320;
+  border-radius:999px;
+  padding:8px 12px;
+  color:var(--green);
+  transition:.25s;
+}
+
+/* ================================
+   GRID / CARDS
+================================ */
+
+.grid{
+  display:grid;
+  grid-template-columns:1.35fr .8fr;
+  gap:16px;
+  margin-top:18px;
+}
+
+.card{
+  background:
+    linear-gradient(
+      145deg,
+      #10141e,
+      #0b0e15
+    );
+  border:1px solid var(--line);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+  padding:18px;
+}
+
+/* ================================
+   HERO
+================================ */
+
+.hero{
+  min-height:275px;
+  position:relative;
+  overflow:hidden;
+}
+
+.dots{
+  position:absolute;
+  inset:0;
+  background-image:
+    radial-gradient(
+      #fff1 1px,
+      transparent 1px
+    );
+  background-size:24px 24px;
+  mask-image:
+    linear-gradient(
+      to bottom,
+      #fff,
+      transparent
+    );
+}
+
+.heroText{
+  position:relative;
+  z-index:2;
+  max-width:650px;
+}
+
+.hero h2{
+  font-size:31px;
+  margin:10px 0;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.6;
+}
+
+.goal{
+  margin-top:20px;
+  width:100%;
+  min-height:85px;
+  background:#080b12;
+  border:1px solid #252c3d;
+  color:#fff;
+  border-radius:14px;
+  padding:14px;
+  resize:vertical;
+  outline:none;
+}
+
+.goal:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px #8b7cff18;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.primary{
+  border:0;
+  border-radius:12px;
+  padding:11px 16px;
+  color:#fff;
+  background:
+    linear-gradient(
+      135deg,
+      #7867ff,
+      #9d73ff
+    );
+  box-shadow:0 8px 30px #7567ff44;
+  transition:.2s;
+}
+
+.primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 35px #7567ff66;
+}
+
+.primary:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+  transform:none;
+}
+
+.secondary{
+  border:1px solid var(--line);
+  background:#121722;
+  color:#dce2ef;
+  border-radius:12px;
+  padding:10px 13px;
+}
+
+.secondary:hover{
+  background:#191e2a;
+}
+
+.quick{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.quick button{
+  border:1px solid var(--line);
+  background:#101520;
+  color:#bfc8d8;
+  border-radius:999px;
+  padding:7px 10px;
+  transition:.2s;
+}
+
+.quick button:hover{
+  border-color:#5148a5;
+  color:white;
+}
+
+/* ================================
+   CEO
+================================ */
+
+.ceoWrap{
+  display:grid;
+  place-items:center;
+  min-height:275px;
+  position:relative;
+}
+
+.ceo{
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  position:relative;
+  background:
+    radial-gradient(
+      circle at 33% 28%,
+      #fff 0 3%,
+      #b6adff 7%,
+      #796aff 28%,
+      #30266e 62%,
+      #100d22 100%
+    );
+  box-shadow:
+    0 0 25px #786affaa,
+    0 0 100px #695aff55;
+  transition:.35s;
+  animation:float 4s ease-in-out infinite;
+}
+
+.ceo:before,
+.ceo:after{
+  content:"";
+  position:absolute;
+  top:59px;
+  width:18px;
+  height:25px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 14px #fff;
+}
+
+.ceo:before{
+  left:40px;
+}
+
+.ceo:after{
+  right:40px;
+}
+
+.mouth{
+  position:absolute;
+  left:58px;
+  top:92px;
+  width:34px;
+  height:14px;
+  border-bottom:3px solid #fff;
+  border-radius:50%;
+}
+
+.ceo .ring{
+  position:absolute;
+  inset:-13px;
+  border:1px dashed #8b7cff77;
+  border-radius:50%;
+  animation:spin 12s linear infinite;
+}
+
+.ceo.working{
+  animation:pulse 1s ease-in-out infinite;
+}
+
+.ceo.thinking{
+  filter:hue-rotate(25deg);
+  animation:think 1.2s ease-in-out infinite;
+}
+
+.ceo.success{
+  box-shadow:
+    0 0 40px #55e6a5cc,
+    0 0 120px #55e6a555;
+}
+
+.ceo.error{
+  box-shadow:
+    0 0 40px #ff6b7dcc;
+}
+
+.ceo:hover{
+  transform:scale(1.08);
+}
+
+.ceoLabel{
+  text-align:center;
+  margin-top:14px;
+  color:#dce2ef;
+}
+
+/* ================================
+   STATS
+================================ */
+
+.stats{
+  display:grid;
+  grid-template-columns:
+    repeat(4,1fr);
+  gap:10px;
+  margin-top:16px;
+}
+
+.stat{
+  background:#0d1119;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:14px;
+}
+
+.stat b{
+  display:block;
+  font-size:24px;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* ================================
+   SECTIONS
+================================ */
+
+.section{
+  margin-top:16px;
+}
+
+.sectionHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+
+.sectionHead h3{
+  margin:0;
+}
+
+/* ================================
+   TASKS
+================================ */
+
+.tasks{
+  display:grid;
+  gap:8px;
+}
+
+.task{
+  display:grid;
+  grid-template-columns:42px 1fr auto;
+  gap:12px;
+  align-items:center;
+  background:#0d1119;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:12px;
+  transition:.2s;
+}
+
+.task:hover{
+  border-color:#313a52;
+  transform:translateY(-1px);
+}
+
+.num{
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  background:#171c2b;
+  color:#aaa4ff;
+}
+
+.task strong{
+  display:block;
+}
+
+.task small{
+  color:var(--muted);
+  display:block;
+  margin-top:3px;
+}
+
+.pill{
+  padding:5px 8px;
+  border-radius:999px;
+  background:#151a27;
+  color:#9da8bd;
+  font-size:11px;
+  white-space:nowrap;
+}
+
+.pill.done{
+  color:var(--green);
+  background:#0b211a;
+}
+
+.pill.run{
+  color:var(--yellow);
+  background:#241e0b;
+}
+
+.pill.failed{
+  color:var(--danger);
+  background:#2a0e15;
+}
+
+/* ================================
+   CONVERSATIONS
+================================ */
+
+.feed{
+  max-height:430px;
+  overflow:auto;
+  display:grid;
+  gap:9px;
+}
+
+.msg{
+  display:flex;
+  gap:10px;
+}
+
+.avatar{
+  width:31px;
+  height:31px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#1a2030;
+  flex:none;
+}
+
+.bubble{
+  background:#101521;
+  border:1px solid var(--line);
+  padding:10px 12px;
+  border-radius:12px;
+  line-height:1.45;
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+}
+
+.bubble small{
+  display:block;
+  color:#7e899e;
+  margin-bottom:3px;
+}
+
+/* ================================
+   ACTIVITY
+================================ */
+
+.activity{
+  max-height:300px;
+  overflow:auto;
+  display:grid;
+  gap:6px;
+}
+
+.log{
+  padding:9px 11px;
+  border-left:2px solid #343d54;
+  background:#0c1018;
+  color:#b9c2d3;
+  border-radius:7px;
+}
+
+/* ================================
+   OUTPUTS
+================================ */
+
+.outputs{
+  display:grid;
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(210px,1fr)
+    );
+  gap:12px;
+}
+
+.output{
+  border:1px solid var(--line);
+  background:#0c1018;
+  border-radius:14px;
+  overflow:hidden;
+  transition:.2s;
+}
+
+.output:hover{
+  border-color:#464f6b;
+  transform:translateY(-2px);
+}
+
+.output img{
+  width:100%;
+  aspect-ratio:1;
+  object-fit:cover;
+  display:block;
+  background:#05060a;
+}
+
+.outputPreview{
+  width:100%;
+  height:150px;
+  border:0;
+  background:white;
+}
+
+.output .body{
+  padding:11px;
+}
+
+.output a{
+  color:#9b91ff;
+  text-decoration:none;
+}
+
+.output a:hover{
+  text-decoration:underline;
+}
+
+.outputButtons{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-top:8px;
+}
+
+.outputButton{
+  display:inline-block;
+  border:1px solid var(--line);
+  background:#121722;
+  color:#dce2ef;
+  padding:6px 9px;
+  border-radius:8px;
+  font-size:12px;
+  text-decoration:none !important;
+}
+
+.outputButton:hover{
+  background:#1a2030;
+}
+
+/* ================================
+   EMPTY
+================================ */
+
+.empty{
+  color:var(--muted);
+  padding:20px;
+  text-align:center;
+}
+
+/* ================================
+   ERROR
+================================ */
+
+.errorBox{
+  background:#240d13;
+  border:1px solid #5a1e2a;
+  color:#ffb5c0;
+  border-radius:12px;
+  padding:12px;
+  margin-top:10px;
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+.mobileNav{
+  display:none;
+}
+
+/* ================================
+   ANIMATIONS
+================================ */
+
+@keyframes float{
+  50%{
+    transform:translateY(-8px);
+  }
+}
+
+@keyframes pulse{
+  50%{
+    transform:scale(1.08);
+    box-shadow:
+      0 0 55px #8b7cffcc,
+      0 0 130px #8b7cff66;
+  }
+}
+
+@keyframes think{
+  50%{
+    transform:
+      translate(7px,-6px)
+      rotate(3deg);
+  }
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+@keyframes brandPulse{
+  50%{
+    box-shadow:
+      0 0 45px #7567ffcc;
+  }
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media(max-width:900px){
+
+  .app{
+    grid-template-columns:1fr;
+  }
+
+  .side{
+    display:none;
+  }
+
+  .main{
+    padding:
+      15px
+      15px
+      80px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .stats{
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .mobileNav{
+    display:flex;
+    position:fixed;
+    bottom:10px;
+    left:10px;
+    right:10px;
+    background:#0c1019ee;
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:6px;
+    z-index:20;
+    justify-content:space-around;
+    backdrop-filter:blur(20px);
+  }
+
+  .mobileNav button{
+    background:transparent;
+    border:0;
+    color:#aab3c5;
+    padding:8px 14px;
+  }
+
+  .hero h2{
+    font-size:25px;
+  }
+
+  .top{
+    align-items:flex-start;
+  }
+
+  .status{
+    font-size:11px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- ================================
+     SIDEBAR
+================================ -->
+
+<aside class="side">
+
+  <div class="brand">
+    <i></i>
+    ST Agent Company
+  </div>
+
+  <div class="nav">
+
+    <button
+      class="active"
+      data-target="command">
+      ◉ Command Center
+    </button>
+
+    <button data-target="team">
+      ✦ Team
+    </button>
+
+    <button data-target="tasks">
+      ▣ Tasks
+    </button>
+
+    <button data-target="conversations">
+      ◌ Conversations
+    </button>
+
+    <button data-target="outputs">
+      ◇ Outputs
+    </button>
+
+    <button data-target="activity">
+      ⌁ Activity
+    </button>
+
+  </div>
+
+</aside>
+
+
+<!-- ================================
+     MAIN
+================================ -->
+
+<main class="main">
+
+  <div class="top">
+
+    <div>
+      <div class="eyebrow">
+        Autonomous AI workforce
+      </div>
+
+      <h1>
+        Company Command Center
+      </h1>
+    </div>
+
+    <div
+      class="status"
+      id="status">
+      ● CEO ONLINE
+    </div>
+
+  </div>
+
+
+  <!-- ================================
+       COMMAND CENTER
+  ================================= -->
+
+  <section
+    id="command"
+    class="grid">
+
+    <div class="card hero">
+
+      <div class="dots"></div>
+
+      <div class="heroText">
+
+        <div class="eyebrow">
+          Give the CEO a goal
+        </div>
+
+        <h2>
+          Turn an idea into company work.
+        </h2>
+
+        <p>
+          The CEO delegates to the right agents,
+          gives them tools, watches their work,
+          verifies outputs and keeps the team moving.
+        </p>
+
+        <textarea
+          id="goal"
+          class="goal"
+          placeholder="Example: Create a professional AI startup logo for ST Group"></textarea>
+
+        <div class="actions">
+
+          <button
+            class="primary"
+            id="run">
+            ▶ Run Company
+          </button>
+
+          <button
+            class="secondary"
+            id="stop">
+            ■ Stop UI
+          </button>
+
+        </div>
+
+        <div class="quick">
+
+          <button
+            data-goal="Create a professional AI startup logo for ST Group">
+            Logo
+          </button>
+
+          <button
+            data-goal="Build a responsive company website for ST Group">
+            Website
+          </button>
+
+          <button
+            data-goal="Research the market for an AI study app and create a useful research report">
+            Research
+          </button>
+
+          <button
+            data-goal="Test the current ST Agent Company dashboard and identify any bugs">
+            Test
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- CEO -->
+
+    <div class="card ceoWrap">
+
+      <div>
+
+        <div
+          id="ceo"
+          class="ceo"
+          title="CEO">
+
+          <div class="ring"></div>
+
+          <div class="mouth"></div>
+
+        </div>
+
+        <div class="ceoLabel">
+
+          <b>
+            CEO Dot
+          </b>
+
+          <br>
+
+          <span id="ceoState">
+            Ready for work
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================================
+       STATS
+  ================================= -->
+
+  <section class="stats">
+
+    <div class="stat">
+      <b id="total">0</b>
+      <span>Total tasks</span>
+    </div>
+
+    <div class="stat">
+      <b id="done">0</b>
+      <span>Completed</span>
+    </div>
+
+    <div class="stat">
+      <b id="active">0</b>
+      <span>Active agents</span>
+    </div>
+
+    <div class="stat">
+      <b id="artifacts">0</b>
+      <span>Outputs</span>
+    </div>
+
+  </section>
+
+
+  <!-- ================================
+       TASKS
+  ================================= -->
+
+  <section
+    id="tasks"
+    class="section card">
+
+    <div class="sectionHead">
+
+      <h3>
+        Task Progress
+      </h3>
+
+      <span
+        class="pill"
+        id="progress">
+        0%
+      </span>
+
+    </div>
+
+    <div
+      class="tasks"
+      id="taskList">
+
+      <div class="empty">
+        No company execution yet.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================================
+       TEAM
+  ================================= -->
+
+  <section
+    id="team"
+    class="section card">
+
+    <div class="sectionHead">
+
+      <h3>
+        AI Workforce
+      </h3>
+
+      <span class="pill">
+        6 roles
+      </span>
+
+    </div>
+
+    <div
+      class="tasks"
+      id="teamList">
+    </div>
+
+  </section>
+
+
+  <!-- ================================
+       CONVERSATIONS
+  ================================= -->
+
+  <section
+    id="conversations"
+    class="section card">
+
+    <div class="sectionHead">
+
+      <h3>
+        CEO ↔ Team
+      </h3>
+
+      <span class="pill">
+        Live
+      </span>
+
+    </div>
+
+    <div
+      class="feed"
+      id="feed">
+
+      <div class="empty">
+        Conversations will appear here.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================================
+       OUTPUTS
+  ================================= -->
+
+  <section
+    id="outputs"
+    class="section card">
+
+    <div class="sectionHead">
+
+      <h3>
+        Outputs
+      </h3>
+
+      <span
+        class="pill"
+        id="outputCount">
+        0
+      </span>
+
+    </div>
+
+    <div
+      class="outputs"
+      id="outputList">
+
+      <div class="empty">
+        Real artifacts will appear here.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================================
+       ACTIVITY
+  ================================= -->
+
+  <section
+    id="activity"
+    class="section card">
+
+    <div class="sectionHead">
+
+      <h3>
+        Live Activity
+      </h3>
+
+      <span class="pill">
+        Stream
+      </span>
+
+    </div>
+
+    <div
+      class="activity"
+      id="activityList">
+    </div>
+
+  </section>
+
+</main>
+
+</div>
+
+
+<!-- MOBILE NAV -->
+
+<div class="mobileNav">
+
+  <button data-target="command">
+    ⌂
+  </button>
+
+  <button data-target="tasks">
+    ▣
+  </button>
+
+  <button data-target="conversations">
+    ◌
+  </button>
+
+  <button data-target="outputs">
+    ◇
+  </button>
+
+  <button data-target="activity">
+    ⌁
+  </button>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
+
+const $ =
+  id => document.getElementById(id);
+
+let currentRequest = null;
+
+let tasks = [];
+
+let outputs = [];
+
+let running = false;
+
+const agents = [
+  "CTO",
+  "Developer",
+  "Researcher",
+  "Designer",
+  "Marketing",
+  "Tester"
+];
+
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(
+      /[&<>"']/g,
+      char => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        "\"":"&quot;",
+        "'":"&#39;"
+      }[char])
+    );
+
+}
+
+
+/* =========================================================
+   OUTPUT PATH NORMALIZER
+========================================================= */
+
+function normalizeOutputUrl(value){
+
+  if(!value){
+    return null;
+  }
+
+  let file =
+    String(value)
+      .replace(/\\/g,"/")
+      .trim();
+
+  if(
+    file.startsWith("http://") ||
+    file.startsWith("https://")
+  ){
+    return file;
+  }
+
+  file =
+    file
+      .replace(/^\/+/,"")
+      .replace(/^public\/outputs\//i,"")
+      .replace(/^outputs\//i,"");
+
+  return "/outputs/" + file;
+}
+
+
+/* =========================================================
+   PREVIEW URL
+========================================================= */
+
+function previewOutputUrl(value){
+
+  if(!value){
+    return null;
+  }
+
+  let file =
+    String(value)
+      .replace(/\\/g,"/")
+      .trim()
+      .replace(/^\/+/,"")
+      .replace(/^public\/outputs\//i,"")
+      .replace(/^outputs\//i,"");
+
+  if(
+    /\.(html?|xhtml)$/i.test(file)
+  ){
+
+    return (
+      "/preview?file=" +
+      encodeURIComponent(file)
+    );
+
+  }
+
+  return normalizeOutputUrl(file);
+}
+
+
+/* =========================================================
+   CEO STATE
+========================================================= */
+
+function ceoState(state){
+
+  const c =
+    $("ceo");
+
+  c.className =
+    "ceo " + state;
+
+  const text = {
+
+    idle:
+      "Ready for work",
+
+    thinking:
+      "Planning with the team…",
+
+    working:
+      "Managing the company…",
+
+    success:
+      "Mission complete ✦",
+
+    error:
+      "Needs attention"
+
+  };
+
+  $("ceoState").textContent =
+    text[state] || state;
+
+  $("status").textContent =
+    state === "success"
+      ? "● COMPANY COMPLETE"
+      : state === "error"
+      ? "● NEEDS ATTENTION"
+      : running
+      ? "● CEO WORKING"
+      : "● CEO ONLINE";
+
+}
+
+
+/* =========================================================
+   ACTIVITY
+========================================================= */
+
+function log(text){
+
+  const d =
+    document.createElement("div");
+
+  d.className =
+    "log";
+
+  d.textContent =
+    new Date().toLocaleTimeString() +
+    "  •  " +
+    text;
+
+  $("activityList")
+    .prepend(d);
+
+}
+
+
+/* =========================================================
+   CONVERSATION
+========================================================= */
+
+function addMsg(
+  speaker,
+  message,
+  employee
+){
+
+  if(
+    $("feed")
+      .querySelector(".empty")
+  ){
+
+    $("feed").innerHTML = "";
+
+  }
+
+  const d =
+    document.createElement("div");
+
+  d.className =
+    "msg";
+
+  const avatar =
+    speaker === "CEO"
+      ? "C"
+      : speaker?.[0] || "A";
+
+  const text =
+    typeof message === "string"
+      ? message
+      : JSON.stringify(
+          message,
+          null,
+          2
+        );
+
+  d.innerHTML = `
+    <div class="avatar">
+      ${escapeHTML(avatar)}
+    </div>
+
+    <div class="bubble">
+
+      <small>
+        ${escapeHTML(speaker || "Agent")}
+        ${
+          employee &&
+          speaker !== employee
+            ? " → " +
+              escapeHTML(employee)
+            : ""
+        }
+      </small>
+
+      ${escapeHTML(text)}
+
+    </div>
+  `;
+
+  $("feed").prepend(d);
+
+}
+
+
+/* =========================================================
+   TASK RENDER
+========================================================= */
+
+function renderTasks(){
+
+  if(!tasks.length){
+
+    $("taskList").innerHTML =
+      '<div class="empty">No company execution yet.</div>';
+
+    $("total").textContent = "0";
+    $("done").textContent = "0";
+    $("active").textContent = "0";
+    $("progress").textContent = "0%";
+
+    return;
+
+  }
+
+  $("taskList").innerHTML =
+    tasks.map(task => {
+
+      let status =
+        task.status ||
+        "PLANNED";
+
+      let cls = "";
+
+      if(status === "COMPLETED"){
+        cls = "done";
+      }
+
+      if(status === "IN PROGRESS"){
+        cls = "run";
+      }
+
+      if(status === "FAILED"){
+        cls = "failed";
+      }
+
+      return `
+        <div class="task">
+
+          <div class="num">
+            ${escapeHTML(task.id)}
+          </div>
+
+          <div>
+
+            <strong>
+              ${escapeHTML(task.employee)}
+            </strong>
+
+            <small>
+              ${escapeHTML(task.task)}
+            </small>
+
+          </div>
+
+          <span class="pill ${cls}">
+            ${escapeHTML(status)}
+          </span>
+
+        </div>
+      `;
+
+    }).join("");
+
+  const completed =
+    tasks.filter(
+      x =>
+        x.status ===
+        "COMPLETED"
+    ).length;
+
+  const active =
+    tasks.filter(
+      x =>
+        x.status ===
+        "IN PROGRESS"
+    ).length;
+
+  $("total").textContent =
+    tasks.length;
+
+  $("done").textContent =
+    completed;
+
+  $("active").textContent =
+    active;
+
+  $("progress").textContent =
+    Math.round(
+      completed /
+      tasks.length *
+      100
+    ) + "%";
+
+}
+
+
+/* =========================================================
+   OUTPUT RENDER
+========================================================= */
+
+function addOutput(output){
+
+  if(!output){
+    return;
+  }
+
+  let rawPath =
+    output.file ||
+    output.path ||
+    output.url;
+
+  if(!rawPath){
+    return;
+  }
+
+  const key =
+    String(rawPath);
+
+  if(
+    outputs.some(
+      x =>
+        String(
+          x.file ||
+          x.path ||
+          x.url
+        ) === key
+    )
+  ){
+
+    return;
+
+  }
+
+  outputs.push(output);
+
+  $("artifacts").textContent =
+    outputs.length;
+
+  $("outputCount").textContent =
+    outputs.length;
+
+  if(
+    $("outputList")
+      .querySelector(".empty")
+  ){
+
+    $("outputList").innerHTML = "";
+
+  }
+
+  const url =
+    normalizeOutputUrl(
+      rawPath
+    );
+
+  const preview =
+    previewOutputUrl(
+      rawPath
+    );
+
+  const isImage =
+    /\.(png|jpg|jpeg|webp|gif|svg)$/i
+      .test(
+        String(rawPath)
+      );
+
+  const isHTML =
+    /\.(html?|xhtml)$/i
+      .test(
+        String(rawPath)
+      );
+
+  const div =
+    document.createElement("div");
+
+  div.className =
+    "output";
+
+  const label =
+    output.label ||
+    output.type ||
+    (
+      isHTML
+        ? "Website"
+        : isImage
+        ? "Generated image"
+        : "Agent output"
+    );
+
+  if(isImage){
+
+    div.innerHTML = `
+
+      <img
+        src="${escapeHTML(url)}"
+        alt="${escapeHTML(label)}"
+        onerror="this.style.display='none'"
+      >
+
+      <div class="body">
+
+        <b>
+          ${escapeHTML(label)}
+        </b>
+
+        <div class="outputButtons">
+
+          <a
+            class="outputButton"
+            href="${escapeHTML(url)}"
+            target="_blank"
+            rel="noopener noreferrer">
+            Open Image ↗
+          </a>
+
+        </div>
+
+      </div>
+    `;
+
+  }
+  else if(isHTML){
+
+    div.innerHTML = `
+
+      <iframe
+        class="outputPreview"
+        src="${escapeHTML(preview)}"
+        loading="lazy">
+      </iframe>
+
+      <div class="body">
+
+        <b>
+          ${escapeHTML(label)}
+        </b>
+
+        <div class="outputButtons">
+
+          <a
+            class="outputButton"
+            href="${escapeHTML(preview)}"
+            target="_blank"
+            rel="noopener noreferrer">
+            🚀 Open Preview
+          </a>
+
+          <a
+            class="outputButton"
+            href="${escapeHTML(url)}"
+            target="_blank"
+            rel="noopener noreferrer">
+            Open File ↗
+          </a>
+
+        </div>
+
+      </div>
+    `;
+
+  }
+  else{
+
+    div.innerHTML = `
+
+      <div
+        style="
+          height:150px;
+          display:grid;
+          place-items:center;
+          background:#080b12;
+          font-size:45px;
+        ">
+        📄
+      </div>
+
+      <div class="body">
+
+        <b>
+          ${escapeHTML(label)}
+        </b>
+
+        <div class="outputButtons">
+
+          <a
+            class="outputButton"
+            href="${escapeHTML(url)}"
+            target="_blank"
+            rel="noopener noreferrer">
+            Open Output ↗
+          </a>
+
+        </div>
+
+      </div>
+    `;
+
+  }
+
+  $("outputList")
+    .prepend(div);
+
+}
+
+
+/* =========================================================
+   HANDLE COMPANY EVENT
+========================================================= */
+
+function handleEvent(event){
+
+  if(
+    !event ||
+    !event.type
+  ){
+
+    return;
+
+  }
+
+  switch(event.type){
+
+    /* ================================
+       COMPANY START
+    ================================= */
+
+    case "company_start":
+
+      log(
+        "🚀 Company execution started"
+      );
+
+      ceoState(
+        "thinking"
+      );
+
+      break;
+
+
+    /* ================================
+       PLAN
+    ================================= */
+
+    case "plan":
+
+      tasks =
+        (
+          event.plan?.tasks ||
+          []
+        ).map(task => ({
+          ...task,
+          status:"PLANNED"
+        }));
+
+      renderTasks();
+
+      log(
+        "CEO created " +
+        tasks.length +
+        " tasks"
+      );
+
+      break;
+
+
+    /* ================================
+       CONVERSATION
+    ================================= */
+
+    case "conversation":
+
+      addMsg(
+        event.speaker ||
+        "Agent",
+
+        event.message,
+
+        event.employee
+      );
+
+      log(
+        `${event.speaker || "Agent"}: ${
+          typeof event.message === "string"
+            ? event.message
+            : "message"
+        }`
+      );
+
+      if(
+        event.speaker === "CEO"
+      ){
+
+        ceoState(
+          "thinking"
+        );
+
+      }
+      else{
+
+        ceoState(
+          "working"
+        );
+
+      }
+
+      break;
+
+
+    /* ================================
+       TASK START
+    ================================= */
+
+    case "task_start":{
+
+      const task =
+        tasks.find(
+          x =>
+            String(x.id) ===
+            String(event.task_id)
+        );
+
+      if(task){
+
+        task.status =
+          "IN PROGRESS";
+
+        task.employee =
+          event.employee;
+
+        if(event.task){
+
+          task.task =
+            event.task;
+
+        }
+
+      }
+
+      renderTasks();
+
+      log(
+        `${event.employee} started Task ${event.task_id}`
+      );
+
+      break;
+
+    }
+
+
+    /* ================================
+       AGENT STEP
+    ================================= */
+
+    case "agent_step":
+
+      log(
+        `${event.employee} is working — step ${event.step}`
+      );
+
+      ceoState(
+        "working"
+      );
+
+      break;
+
+
+    /* ================================
+       TOOL START
+    ================================= */
+
+    case "tool_start":
+
+      log(
+        `${event.employee} → ${event.tool}`
+      );
+
+      break;
+
+
+    /* ================================
+       TOOL RESULT
+    ================================= */
+
+    case "tool_result":
+
+      log(
+        `${event.employee} completed ${event.tool}`
+      );
+
+      if(
+        event.result
+      ){
+
+        const result =
+          event.result;
+
+        if(
+          result.path ||
+          result.file
+        ){
+
+          addOutput({
+            ...result,
+            path:
+              result.path ||
+              result.file
+          });
+
+        }
+
+      }
+
+      break;
+
+
+    /* ================================
+       TOOL ERROR
+    ================================= */
+
+    case "tool_error":
+
+      log(
+        `${event.employee} tool error: ${event.error}`
+      );
+
+      addMsg(
+        event.employee ||
+        "Agent",
+
+        "Tool error: " +
+        event.error
+      );
+
+      break;
+
+
+    /* ================================
+       TASK COMPLETE
+    ================================= */
+
+    case "task_complete":{
+
+      const task =
+        tasks.find(
+          x =>
+            String(x.id) ===
+            String(event.task_id)
+        );
+
+      if(task){
+
+        task.status =
+          event.result?.status ===
+          "FAILED"
+            ? "FAILED"
+            : "COMPLETED";
+
+      }
+
+      renderTasks();
+
+      log(
+        `${event.employee} completed Task ${event.task_id}`
+      );
+
+      const taskOutputs =
+        event.result?.outputs ||
+        [];
+
+      taskOutputs.forEach(
+        addOutput
+      );
+
+      break;
+
+    }
+
+
+    /* ================================
+       CEO REVIEW
+    ================================= */
+
+    case "ceo_review":
+
+      log(
+        `CEO reviewed ${event.employee}'s Task ${event.task_id}`
+      );
+
+      break;
+
+
+    /* ================================
+       COMPANY COMPLETE
+    ================================= */
+
+    case "company_complete":
+
+      running =
+        false;
+
+      $("run").disabled =
+        false;
+
+      ceoState(
+        "success"
+      );
+
+      log(
+        "🎉 Company execution completed"
+      );
+
+      (
+        event.result?.tasks ||
+        []
+      ).forEach(
+        task => {
+
+          (
+            task.result?.outputs ||
+            []
+          ).forEach(
+            addOutput
+          );
+
+        }
+      );
+
+      refreshOutputs();
+
+      break;
+
+
+    /* ================================
+       COMPANY ERROR
+    ================================= */
+
+    case "company_error":
+
+      running =
+        false;
+
+      $("run").disabled =
+        false;
+
+      ceoState(
+        "error"
+      );
+
+      log(
+        "ERROR: " +
+        event.error
+      );
+
+      addMsg(
+        "CEO",
+        "Execution error: " +
+        event.error
+      );
+
+      showError(
+        event.error
+      );
+
+      break;
+
+  }
+
+}
+
+
+/* =========================================================
+   ERROR BOX
+========================================================= */
+
+function showError(message){
+
+  let box =
+    document.querySelector(
+      ".errorBox"
+    );
+
+  if(!box){
+
+    box =
+      document.createElement(
+        "div"
+      );
+
+    box.className =
+      "errorBox";
+
+    $("command")
+      .after(box);
+
+  }
+
+  box.textContent =
+    "⚠ " +
+    message;
+
+}
+
+
+/* =========================================================
+   CLEAR ERROR
+========================================================= */
+
+function clearError(){
+
+  const box =
+    document.querySelector(
+      ".errorBox"
+    );
+
+  if(box){
+    box.remove();
+  }
+
+}
+
+
+/* =========================================================
+   START COMPANY
+========================================================= */
+
+async function runCompany(){
+
+  if(running){
+    return;
+  }
+
+  const goal =
+    $("goal")
+      .value
+      .trim();
+
+  if(!goal){
+
+    $("goal").focus();
+
+    return;
+
+  }
+
+  clearError();
+
+  running =
+    true;
+
+  $("run").disabled =
+    true;
+
+  tasks = [];
+
+  outputs = [];
+
+  $("taskList").innerHTML =
+    '<div class="empty">CEO is creating the plan…</div>';
+
+  $("outputList").innerHTML =
+    '<div class="empty">Waiting for artifacts…</div>';
+
+  $("feed").innerHTML = "";
+
+  $("activityList").innerHTML = "";
+
+  $("artifacts").textContent =
+    "0";
+
+  $("outputCount").textContent =
+    "0";
+
+  $("done").textContent =
+    "0";
+
+  $("active").textContent =
+    "0";
+
+  $("progress").textContent =
+    "0%";
+
+  ceoState(
+    "thinking"
+  );
+
+  addMsg(
+    "CEO",
+    "Goal received: " +
+    goal
+  );
+
+  log(
+    "CEO received a new company goal"
+  );
+
+  try{
+
+    /*
+      IMPORTANT:
+
+      server.js expects:
+
+      POST /run-company
+
+      So we use fetch() instead of
+      EventSource().
+    */
+
+    currentRequest =
+      await fetch(
+        "/run-company",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+              goal
+            })
+        }
+      );
+
+    if(
+      !currentRequest.ok
+    ){
+
+      const text =
+        await currentRequest.text();
+
+      throw new Error(
+        text ||
+        `Server returned ${currentRequest.status}`
+      );
+
+    }
+
+    if(
+      !currentRequest.body
+    ){
+
+      throw new Error(
+        "Server did not provide a streaming response."
+      );
+
+    }
+
+    const reader =
+      currentRequest
+        .body
+        .getReader();
+
+    const decoder =
+      new TextDecoder();
+
+    let buffer = "";
+
+    while(true){
+
+      const {
+        value,
+        done
+      } =
+        await reader.read();
+
+      if(done){
+        break;
+      }
+
+      buffer +=
+        decoder.decode(
+          value,
+          {
+            stream:true
+          }
+        );
+
+      const messages =
+        buffer.split(
+          "\n\n"
+        );
+
+      buffer =
+        messages.pop() ||
+        "";
+
+      for(
+        const message
+        of messages
+      ){
+
+        const lines =
+          message
+            .split("\n");
+
+        for(
+          const line
+          of lines
+        ){
+
+          if(
+            !line.startsWith(
+              "data:"
+            )
+          ){
+
+            continue;
+
+          }
+
+          const json =
+            line
+              .slice(5)
+              .trim();
+
+          if(!json){
+            continue;
+          }
+
+          try{
+
+            handleEvent(
+              JSON.parse(json)
+            );
+
+          }
+          catch(error){
+
+            log(
+              "Stream JSON error: " +
+              error.message
+            );
+
+          }
+
+        }
+
+      }
+
+    }
+
+    if(running){
+
+      running =
+        false;
+
+      $("run").disabled =
+        false;
+
+      ceoState(
+        "success"
+      );
+
+      log(
+        "Company stream ended."
+      );
+
+      refreshOutputs();
+
+    }
+
+  }
+  catch(error){
+
+    console.error(
+      error
+    );
+
+    running =
+      false;
+
+    $("run").disabled =
+      false;
+
+    ceoState(
+      "error"
+    );
+
+    log(
+      "Connection error: " +
+      error.message
+    );
+
+    addMsg(
+      "CEO",
+      "I couldn't complete the company execution because the server connection failed."
+    );
+
+    showError(
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   STOP
+========================================================= */
+
+function stopCompany(){
+
+  running =
+    false;
+
+  $("run").disabled =
+    false;
+
+  /*
+    Abort the current POST request.
+  */
+
+  if(
+    currentRequest
+  ){
+
+    try{
+
+      /*
+        fetch() cannot be aborted without
+        AbortController, so this only
+        changes the UI state.
+      */
+
+    }
+    catch(_){}
+
+  }
+
+  ceoState(
+    "idle"
+  );
+
+  log(
+    "UI execution display stopped."
+  );
+
+}
+
+
+/* =========================================================
+   LOAD EXISTING OUTPUTS
+========================================================= */
+
+async function refreshOutputs(){
+
+  try{
+
+    const response =
+      await fetch(
+        "/outputs-list",
+        {
+          cache:"no-store"
+        }
+      );
+
+    if(
+      !response.ok
+    ){
+      return;
+    }
+
+    const data =
+      await response.json();
+
+    const list =
+      data.outputs ||
+      [];
+
+    list.forEach(
+      item => {
+
+        addOutput({
+          path:
+            item.file,
+
+          url:
+            item.url,
+
+          preview:
+            item.preview,
+
+          label:
+            item.file
+        });
+
+      }
+    );
+
+  }
+  catch(error){
+
+    log(
+      "Could not refresh outputs: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   TEAM
+========================================================= */
+
+$("teamList").innerHTML =
+  agents.map(
+    agent => `
+
+      <div class="task">
+
+        <div class="num">
+          ✦
+        </div>
+
+        <div>
+
+          <strong>
+            ${escapeHTML(agent)}
+          </strong>
+
+          <small>
+            AI employee with controlled workspace tools
+          </small>
+
+        </div>
+
+        <span class="pill">
+          READY
+        </span>
+
+      </div>
+
+    `
+  ).join("");
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+$("run")
+  .addEventListener(
+    "click",
+    runCompany
+  );
+
+$("stop")
+  .addEventListener(
+    "click",
+    stopCompany
+  );
+
+
+/* =========================================================
+   CEO CLICK
+========================================================= */
+
+$("ceo")
+  .addEventListener(
+    "click",
+    () => {
+
+      ceoState(
+        running
+          ? "thinking"
+          : "working"
+      );
+
+      addMsg(
+        "CEO",
+        running
+          ? "I'm coordinating the team right now."
+          : "I'm ready. Give me a goal and I'll delegate it to the company."
+      );
+
+      setTimeout(
+        () => {
+
+          ceoState(
+            running
+              ? "working"
+              : "idle"
+          );
+
+        },
+        1000
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   SIDEBAR / MOBILE NAV
+========================================================= */
+
+document
+  .querySelectorAll(
+    "[data-target]"
+  )
+  .forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const target =
+            document.getElementById(
+              button.dataset.target
+            );
+
+          if(target){
+
+            target.scrollIntoView({
+              behavior:"smooth",
+              block:"start"
+            });
+
+          }
+
+          document
+            .querySelectorAll(
+              ".nav button"
+            )
+            .forEach(
+              b =>
+                b.classList.remove(
+                  "active"
+                )
+            );
+
+          const desktopButton =
+            document.querySelector(
+              `.nav button[data-target="${button.dataset.target}"]`
+            );
+
+          if(desktopButton){
+
+            desktopButton.classList.add(
+              "active"
+            );
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   QUICK GOALS
+========================================================= */
+
+document
+  .querySelectorAll(
+    ".quick button"
+  )
+  .forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          $("goal").value =
+            button.dataset.goal;
+
+          $("goal").focus();
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   KEYBOARD SHORTCUT
+========================================================= */
+
+$("goal")
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if(
+        event.ctrlKey &&
+        event.key === "Enter"
+      ){
+
+        event.preventDefault();
+
+        runCompany();
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+renderTasks();
+
+refreshOutputs();
+
+ceoState(
+  "idle"
+);
+
+log(
+  "ST Agent Company dashboard initialized."
+);
+
+</script>
+
+</body>
+</html>
